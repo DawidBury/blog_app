@@ -17,7 +17,7 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    App\EventSubscriber\PasswordHashSubscriber:
+    App\EventSubscriber\UserRegisterSubscriber:
         autowire: true
 
     # controllers are imported separately to make sure services can be injected
