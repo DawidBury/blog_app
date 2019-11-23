@@ -45,16 +45,6 @@ class ResetPasswordAction
 
     public function __invoke(User $data)
     {
-        // $reset = new ResetPasswordAction();
-        // $reset();
-//        var_dump(
-//            $data->getNewPassword(),
-//            $data->getNewRetypedPassword(),
-//            $data->getOldPassword(),
-//            $data->getRetypedPassword(),
-//            $data->getEmail()
-//        );
-//        die;
 
         $this->validator->validate($data);
 

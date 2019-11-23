@@ -20,7 +20,7 @@ use App\Controller\ResetPasswordAction;
  *     itemOperations={
  *          "get" = {
  *              "access_control" = "is_granted('IS_AUTHENTICATED_FULLY')",
-*                "normalization_context"={
+ *                "normalization_context"={
  *                  "groups"={"get"}
  *               }
  *          },
