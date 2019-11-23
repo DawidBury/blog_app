@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Upload;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
@@ -80,9 +81,18 @@ class BlogPost implements AuthoredEntityInterface, PublishedDateEntityInterface
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Upload")
+     * @ORM\JoinTable()
+     * @ApiSubresource()
+     * @Groups({"post", "get-blog-post-with-author"})
+     */
+    private $uploads;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->uploads = new ArrayCollection();
     }
 
     public function getComments()
@@ -155,6 +165,18 @@ class BlogPost implements AuthoredEntityInterface, PublishedDateEntityInterface
         $this->slug = $slug;
     }
 
+    public function getUploads()
+    {
+        return $this->uploads;
+    }
 
+    public function addUpload(Upload $upload)
+    {
+        $this->uploads->add($upload);
+    }
 
+    public function removeUpload(Upload $upload)
+    {
+        $this->uploads->removeElement($upload);
+    }
 }
