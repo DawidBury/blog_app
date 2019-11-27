@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  * @ApiResource(
+ *     attributes={"order"={"published": "DESC"}},
  *     subresourceOperations={
  *          "api_blog_posts_comments_get_subresource"={
  *              "method"="GET",

@@ -2,17 +2,62 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use App\Entity\Upload;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *          "id": "exact",
+ *          "title": "partial",
+ *          "content": "partial",
+ *          "author": "exact",
+ *          "author.name": "partial"
+ *     }
+ * )
+ * @ApiFilter(
+ *     DateFilter::class,
+ *     properties={
+ *          "published"
+ *     }
+ * )
+ * //available gt,gte,lt,lte
+ * @ApiFilter(
+ *     RangeFilter::class,
+ *     properties={
+ *          "id"
+ *     }
+ * )
+ * @ApiFilter(
+ *     OrderFilter::class,
+ *     properties={
+ *          "id",
+ *          "published",
+ *          "title"
+ *     }
+ * )
+ * @ApiFilter(
+ *     PropertyFilter::class,
+ *     arguments={
+ *          "parameterName": "properties",
+ *          "overrideDefaultProperties": false,
+ *          "whitelist": {"id", "author", "slug", "title"}
+ *     }
+ * )
  * @ApiResource(
+ *     attributes={"order"={"published": "DESC"}},
  *     itemOperations={
  *          "get"= {
  *              "normalization_context"={"groups"={"get-blog-post-with-author"}}
