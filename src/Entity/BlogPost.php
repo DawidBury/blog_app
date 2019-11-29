@@ -27,6 +27,7 @@ use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
  *          "author.name": "partial"
  *     }
  * )
+ * //published[after]=2018
  * @ApiFilter(
  *     DateFilter::class,
  *     properties={
