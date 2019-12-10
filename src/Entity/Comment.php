@@ -49,7 +49,7 @@ class Comment implements AuthoredEntityInterface, PublishedDateEntityInterface
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"post", "get-comment-with-author"})
+     * @Groups({"post", "get-comment-with-author", "order_details"})
      */
     private $content;
 
